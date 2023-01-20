@@ -1,4 +1,5 @@
 import './App.css';
+import { useRef } from 'react';
 // images
 import logo from "./assets/logo-white.png";
 import banner from "./assets/banner.png";
@@ -21,13 +22,23 @@ import volunteersImage from "./assets/dummy/volunteers.png"
 
 function App() {
 
+  const topRef = useRef(null);
+  const speakerRef = useRef(null);
+  const pickRef = useRef(null);
+  const aboutRef = useRef(null);
+  const volunteerRef = useRef(null);
+
+
+  const goToComp = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const link = "https://notkshitijsingh.github.io"
 
   function headlink(title, to) {
     return (
       <div className='head-link'>
-        <a>{title}</a>
+        <button onClick={() => goToComp(to)}>{title}</button>
       </div>
     )
   }
@@ -61,17 +72,23 @@ function App() {
   }
 
   return (
-    <div>
+    <div ref={topRef}>
       <div className='head'>
-        {headlink("TEDxVITBHOPAL 2023", link)}
-        {headlink("SPEAKERS", link)}
-        {headlink("OUR PICKS", link)}
-        <img alt="TEDxVITBHOPAL Logo" src={logo} className="logo-img" />
-        {headlink("ABOUT", link)}
-        {headlink("CONTACT US", link)}
-        {headlink("BECOME A VOLUNTEER", link)}
+        {headlink("")}{headlink("")}
+        <div className='head-link'>
+          <a href={link}>TEDxVITBHOPAL 2023</a>
+        </div>
+        {headlink("SPEAKERS", speakerRef)}
+        {headlink("OUR PICKS", pickRef)}
+        <img alt="TEDxVITBHOPAL Logo" src={logo} className="logo-img" onClick={() => goToComp(topRef)} />
+        {headlink("ABOUT", aboutRef)}
+        <div className='head-link'>
+          <a href="mailto:chaharkshitij@gmail.com">CONTACT US</a>
+        </div>
+        {headlink("BECOME A VOLUNTEER", volunteerRef)}
+        {headlink("")}{headlink("")}
       </div>
-      {gap()}
+      {gap()}{gap()}
       <img alt="Empowering perspectives, inspiring change" src={banner} className="banner" />
       {gap()}
       <div className='socials'>
@@ -83,7 +100,7 @@ function App() {
       </div>
       {gap()}
       {gap()}
-      <div className='speakers' id="speakers">
+      <div className='speakers' id="speakers" ref={speakerRef}>
         <span className='title'>SPEAKERS</span>
         {gap()}
         {gap()}
@@ -99,8 +116,8 @@ function App() {
         </div>
       </div>
       {gap()}{gap()}
-      <div className='our-picks'>
-        <span className='title'>OUR PICKS</span>
+      <div className='our-picks' >
+        <span className='title' ref={pickRef}>OUR PICKS</span>
         {gap()}
         <div className='youtube-box'>
           <YoutubeEmbed embedId="5MgBikgcWnY" />
@@ -108,8 +125,8 @@ function App() {
         <div className='desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
       </div>
       {gap()}{gap()}
-      <div className='about'>
-        <span className='title'>ABOUT</span>
+      <div className='about' >
+        <span className='title' ref={aboutRef}>ABOUT</span>
         {gap()}
         <div className='about-box'>
           <div className='about-text'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
@@ -118,7 +135,7 @@ function App() {
         </div>
       </div>
       {gap()}{gap()}
-      <div className='volunteer'>
+      <div className='volunteer' ref={volunteerRef}>
         <span className='title'>BECOME A VOLUNTEER</span>
         {gap()}
         <img alt="volunteers" src={volunteersImage} />
